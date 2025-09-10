@@ -14,7 +14,7 @@ const char* ssid = "anusheel";
 const char* password = "anusheel123";
 
 // Supabase
-const char* supabase_url = "https://sngznbesdrkksldtwmvw.supabase.co";
+const char* supabase_url = "https://sngznbesdrkksldtwmvw.supabase.co/rest/v1/TerraModule";
 const char* supabase_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuZ3puYmVzZHJra3NsZHR3bXZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NzU2ODYsImV4cCI6MjA3MzA1MTY4Nn0.mGwIjcdTUiI73Vn_MxiEn3ngWXEOvsNvlOWiK-ukbWc"; // replace with your key
 
 #define LED_BUILTIN 2
