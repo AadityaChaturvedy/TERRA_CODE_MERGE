@@ -14,8 +14,8 @@ const char* ssid = "anusheel";
 const char* password = "anusheel123";
 
 // Supabase
-const char* supabase_url = "https://lmmnqygkgacfhnirbwas.supabase.co/rest/v1/sensor_data";
-const char* supabase_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxtbW5xeWdrZ2FjZmhuaXJid2FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNDAzMzAsImV4cCI6MjA3MjcxNjMzMH0.4q_3cv8kitBnHqEkHHtniNeE64eoC2X0rEJVQ0utxlE"; // replace with your key
+const char* supabase_url = "https://sngznbesdrkksldtwmvw.supabase.co";
+const char* supabase_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuZ3puYmVzZHJra3NsZHR3bXZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NzU2ODYsImV4cCI6MjA3MzA1MTY4Nn0.mGwIjcdTUiI73Vn_MxiEn3ngWXEOvsNvlOWiK-ukbWc";
 
 #define LED_BUILTIN 2
 
@@ -88,7 +88,7 @@ String json = "{";
 json += "\"node_name\":\"Node1\",";
 json += "\"temperature\":" + String((int)packet.temperature) + ",";
 json += "\"humidity\":" + String((int)packet.humidity) + ",";
-json += "\"light\":" + String((int)packet.light) + ",";
+json += "\"light_intensity\":" + String((int)packet.light) + ",";
 json += "\"soil_moisture\":" + String((int)packet.soil) + ",";
 json += "\"npk\":" + String((int)packet.npk) + ",";
 json += "\"uv_index\":" + String(packet.uv / 10.0, 1);
