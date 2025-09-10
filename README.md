@@ -19,20 +19,17 @@ Historical Trend Analysis: View and analyze historical data through interactive 
 Scalable & Modular Design: The system is built to grow with your farm. Easily expand your network from a single module to cover entire fields with our modular hardware and software architecture.
 
 ## Project Structure
-
+```
 /
-├── hardware/
-│   ├── arduino_transmitter/    # Firmware for the Arduino UNO sensor and actuator node.
-│   └── esp32_receiver/         # Firmware for the ESP32 gateway that sends data to the cloud.
-│
-├── software/
-│   ├── backend/                # Source code for the API server that processes and stores data.
-│   └── frontend/               # Source code for the web dashboard user interface.
-│
-└── docs/
-    ├── schematics/             # Circuit diagrams, PCB layouts, and hardware connection guides.
-    └── reports/                # Project reports, presentations, and other supporting materials.
-
+├── Docs
+├── Hardware
+├── README.md
+└── Software
+    ├── Satellite_Data_Processing
+    ├── size_calculate.py
+    ├── tsconfig.json
+    └── Website
+```
 ## Getting Started
 
 1. Clone the repository:
