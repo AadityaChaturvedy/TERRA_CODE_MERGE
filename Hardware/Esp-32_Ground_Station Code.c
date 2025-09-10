@@ -15,10 +15,11 @@ const char* password = "anusheel123";
 
 // Supabase
 const char* supabase_url = "https://sngznbesdrkksldtwmvw.supabase.co";
-const char* supabase_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuZ3puYmVzZHJra3NsZHR3bXZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NzU2ODYsImV4cCI6MjA3MzA1MTY4Nn0.mGwIjcdTUiI73Vn_MxiEn3ngWXEOvsNvlOWiK-ukbWc";
+const char* supabase_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNuZ3puYmVzZHJra3NsZHR3bXZ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc0NzU2ODYsImV4cCI6MjA3MzA1MTY4Nn0.mGwIjcdTUiI73Vn_MxiEn3ngWXEOvsNvlOWiK-ukbWc"; // replace with your key
 
 #define LED_BUILTIN 2
 
+// --- MODIFIED: Packet structure now includes pump_status ---
 struct SensorPacket {
   int8_t temperature;
   uint8_t humidity;
@@ -26,6 +27,7 @@ struct SensorPacket {
   uint8_t soil;
   uint8_t npk;
   uint8_t uv;
+  uint8_t pump_status; // 0 = OFF, 1 = ON
 };
 
 void setup() {
@@ -76,23 +78,21 @@ void loop() {
     digitalWrite(LED_BUILTIN, HIGH);
 
     Serial.print("📥 Packet RX -> ");
-    Serial.print(packet.temperature); Serial.print(" °C, ");
-    Serial.print(packet.humidity); Serial.print(" %, ");
-    Serial.print(packet.light); Serial.print(" lux, ");
-    Serial.print(packet.soil); Serial.print(" %, ");
-    Serial.print(packet.npk); Serial.print(" %, ");
-    Serial.print(packet.uv / 10.0); Serial.println(" UV");
+    Serial.print(packet.temperature); Serial.print("°C, ");
+    Serial.print(packet.soil); Serial.print("%, ");
+    Serial.print("Pump: "); Serial.println(packet.pump_status == 1 ? "ON" : "OFF");
 
-    // Build JSON with fixed node_name
-String json = "{";
-json += "\"node_name\":\"Node1\",";
-json += "\"temperature\":" + String((int)packet.temperature) + ",";
-json += "\"humidity\":" + String((int)packet.humidity) + ",";
-json += "\"light_intensity\":" + String((int)packet.light) + ",";
-json += "\"soil_moisture\":" + String((int)packet.soil) + ",";
-json += "\"npk\":" + String((int)packet.npk) + ",";
-json += "\"uv_index\":" + String(packet.uv / 10.0, 1);
-json += "}";
+    // --- MODIFIED: Build JSON to include pump_status ---
+    String json = "{";
+    json += "\"node_name\":\"Node1\",";
+    json += "\"temperature\":" + String((int)packet.temperature) + ",";
+    json += "\"humidity\":" + String((int)packet.humidity) + ",";
+    json += "\"light\":" + String((int)packet.light) + ",";
+    json += "\"soil_moisture\":" + String((int)packet.soil) + ",";
+    json += "\"npk\":" + String((int)packet.npk) + ",";
+    json += "\"pump_status\":" + String((int)packet.pump_status) + ","; // New field
+    json += "\"uv_index\":" + String(packet.uv / 10.0, 1);
+    json += "}";
 
     Serial.print("🚀 Sending JSON -> ");
     Serial.println(json);
