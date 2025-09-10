@@ -138,6 +138,7 @@ export default function TERRAMobileDashboard() {
   const [showReportPreview, setShowReportPreview] = useState(false)
   const [footerPage, setFooterPage] = useState<string | null>(null)
   const [showTrend, setShowTrend] = useState(false)
+  const [showInfoMenu, setShowInfoMenu] = useState(false)
 
   const getHealthColor = (health: number) => {
     if (health >= 80) return "bg-green-500"
@@ -176,25 +177,75 @@ export default function TERRAMobileDashboard() {
 
   const renderTabBar = () => (
     <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 px-4 py-2 z-40">
-      <div className="flex justify-around items-center max-w-md mx-auto">
-        {[
-          { id: "dashboard", icon: BarChart3, label: "Dashboard" },
-          { id: "insights", icon: Lightbulb, label: "Insights" },
-          { id: "reports", icon: FileText, label: "Reports" },
-          { id: "settings", icon: Settings, label: "Settings" },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${
-              activeTab === tab.id ? "bg-blue-500 text-white shadow-lg" : "text-gray-600 hover:bg-gray-100"
-            }`}
-          >
-            <tab.icon className="h-5 w-5" />
-            <span className="text-xs font-medium">{tab.label}</span>
-          </button>
-        ))}
+      <div className="flex justify-between items-center max-w-md mx-auto">
+        <div className="flex justify-around items-center flex-1">
+          {[
+            { id: "dashboard", icon: BarChart3, label: "Dashboard" },
+            { id: "insights", icon: Lightbulb, label: "Insights" },
+            { id: "reports", icon: FileText, label: "Reports" },
+            { id: "settings", icon: Settings, label: "Settings" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex flex-col items-center gap-1 p-2 rounded-lg transition-all ${
+                activeTab === tab.id ? "bg-blue-500 text-white shadow-lg" : "text-gray-600 hover:bg-gray-100"
+              }`}
+            >
+              <tab.icon className="h-5 w-5" />
+              <span className="text-xs font-medium">{tab.label}</span>
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => setShowInfoMenu(!showInfoMenu)}
+          className="ml-4 w-8 h-8 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-all"
+        >
+          <span className="text-sm font-medium text-gray-600">i</span>
+        </button>
       </div>
+      {showInfoMenu && (
+        <div className="absolute bottom-full right-4 mb-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 min-w-[200px]">
+          <div className="space-y-3">
+            <button
+              onClick={() => {
+                handleFooterPageClick("about")
+                setShowInfoMenu(false)
+              }}
+              className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              About TERRA
+            </button>
+            <button
+              onClick={() => {
+                handleFooterPageClick("contact")
+                setShowInfoMenu(false)
+              }}
+              className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              Contact Us
+            </button>
+            <button
+              onClick={() => {
+                handleFooterPageClick("privacy")
+                setShowInfoMenu(false)
+              }}
+              className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              Privacy Policy
+            </button>
+            <button
+              onClick={() => {
+                handleFooterPageClick("credits")
+                setShowInfoMenu(false)
+              }}
+              className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              Hackathon Credits
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 
@@ -262,7 +313,7 @@ export default function TERRAMobileDashboard() {
       credits: {
         title: "Hackathon Credits",
         content:
-          "Built during the 2024 AgTech Hackathon by Team TERRA. Special thanks to our mentors and the open-source community for making this project possible.",
+          "Built during the 2025 CODE-MERGE Hackathon by Team WUNDERKINDS. Special thanks to our mentors and the open-source community for making this project possible.",
       },
     }
 
@@ -531,7 +582,6 @@ export default function TERRAMobileDashboard() {
               </div>
               <div>
                 <h1 className="text-lg font-bold">TERRA</h1>
-                <p className="text-xs text-gray-600">AI Farm Monitor</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -711,7 +761,7 @@ export default function TERRAMobileDashboard() {
                       </Button>
                       <Button variant="outline" className="flex-1 rounded-xl bg-transparent">
                         <Share className="h-4 w-4 mr-2" />
-                        Share via WhatsApp
+                        Share
                       </Button>
                     </div>
                   </CardContent>
@@ -766,26 +816,6 @@ export default function TERRAMobileDashboard() {
         </main>
 
         {!expandedZone && !footerPage && renderTabBar()}
-
-        {!expandedZone && !footerPage && (
-          <div className="fixed bottom-16 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 px-4 py-2 z-30">
-            <div className="flex justify-center gap-6 text-xs text-gray-600">
-              <button onClick={() => handleFooterPageClick("about")} className="hover:text-blue-500">
-                About
-              </button>
-              <button onClick={() => handleFooterPageClick("contact")} className="hover:text-blue-500">
-                Contact
-              </button>
-              <button onClick={() => handleFooterPageClick("privacy")} className="hover:text-blue-500">
-                Privacy
-              </button>
-              <button onClick={() => handleFooterPageClick("credits")} className="hover:text-blue-500">
-                Credits
-              </button>
-            </div>
-          </div>
-        )}
-
         {showReportPreview && renderReportPreview()}
       </div>
     </TooltipProvider>
