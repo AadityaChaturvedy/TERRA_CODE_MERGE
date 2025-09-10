@@ -1,6 +1,6 @@
 # TERRA
 
-TERRA is an **IoT-based smart greenhouse project** designed to automate irrigation, nutrient delivery, and climate monitoring for efficient and sustainable agriculture.
+TERRA is an **IoT-based smart agri project** designed to automate irrigation, nutrient delivery, and climate monitoring for efficient and sustainable agriculture.
 
 ## Features
 
@@ -23,7 +23,7 @@ git clone https://github.com/AadityaChaturvedy/TERRA_CODE_MERGE.git
 
 ## Requirements
 
-- Arduino UNO, ESP32 module, sensors (soil moisture, DHT-11, UV, LDR)
+- Arduino UNO, ESP32 module, sensors (Soil moisture, AHT-10, BH1750, GUVA UV)
 - Python 3.8+ or Node.js (for backend/frontend)
 - PlatformIO or Arduino IDE (for microcontroller code)
 
